@@ -1,0 +1,18 @@
+{
+    "hosting": {
+        "site": "expensetracker-d49a4-d50fa",
+        "public": "build/web",
+        "ignore": [
+            "firebase.json",
+            "**/.*",
+            "**/node_modules/**"
+        ],
+        "rewrites": [
+            {
+                "source": "**",
+                "destination": "/index.html"
+            }
+        ]
+    }
+}
+
