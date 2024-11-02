@@ -4,6 +4,8 @@ void main() {
   runApp(const MyApp());
 }
 
+void runApp(MyApp myApp) {}
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -35,6 +37,8 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+class StatelessWidget {}
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
