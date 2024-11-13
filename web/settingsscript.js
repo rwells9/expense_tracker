@@ -1,12 +1,12 @@
 // Firebase config
 const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_AUTH_DOMAIN",
-    projectId: "YOUR_PROJECT_ID",
-    storageBucket: "YOUR_STORAGE_BUCKET",
-    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-    appId: "YOUR_APP_ID"
-  };
+  apiKey: "AIzaSyB5WkNyz-lCIO8irhtuvsSJSabwVhwDDnE",
+  authDomain: "expensetracker-d49a4.firebaseapp.com",
+  projectId: "expensetracker-d49a4",
+  storageBucket: "expensetracker-d49a4.firebasestorage.app",
+  messagingSenderId: "592297030207",
+  appId: "1:592297030207:web:7a9a8edbde148236f77e8a"
+};
   
   const app = firebase.initializeApp(firebaseConfig);
   const auth = firebase.auth();
