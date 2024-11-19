@@ -14,6 +14,7 @@
     <div class="section" id="account-section">
       <h3>Account Information</h3>
       <p>Email: <span id="email-display"></span></p>
+      <button onclick="document.location='accountdetails.html'">View Account Details</button>
       <button onclick="logout()">Logout</button>
     </div>
 
@@ -21,14 +22,13 @@
     <div class="section" id="report-section">
       <h3>Reports & Analysis</h3>
       <p>View detailed reports on your spending habits.</p>
-      <button onclick="document.location='report.html'">view reports</button>
+      <button onclick="document.location='report.html'">View Reports</button>
     </div>
 
     <!-- Update Username -->
     <div class="section" id="username-section">
       <h3>Update Username</h3>
-      <input type="text" id="new-username" placeholder="Enter new username">
-      <button onclick="updateUsername()">Update Username</button>
+      <button onclick="document.location='updateusername.html'">Update Username</button>
     </div>
 
     <!-- Change Password -->
@@ -40,7 +40,6 @@
 
   <script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-firestore.js"></script>
   <script src="settingsscript.js"></script>
 </body>
 </html>

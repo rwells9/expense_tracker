@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Report</title>
+  <link rel="stylesheet" href="report.css"> <!-- Updated CSS file name -->
+</head>
+<body>
+  <header>
+    <h1>Report</h1>
+  </header>
+
+  <main>
+    <section id="data-input">
+      <h2>Enter Data</h2>
+      <form id="report-expense-form">
+        <h3>Add Expense</h3>
+        <input type="text" id="report-expense-category" placeholder="Category" required>
+        <input type="number" id="report-expense-amount" placeholder="Amount" required>
+        <button type="button" id="report-add-expense">Add Expense</button>
+      </form>
+
+      <form id="report-income-form">
+        <h3>Add Income</h3>
+        <input type="text" id="report-income-source" placeholder="Source" required>
+        <input type="number" id="report-income-amount" placeholder="Amount" required>
+        <button type="button" id="report-add-income">Add Income</button>
+      </form>
+    </section>
+
+    <section id="reports">
+      <h2>Reports</h2>
+      <button type="button" id="report-generate-expense">Generate Expense Report</button>
+      <p id="report-expense">Total Expenses: $0</p>
+
+      <button type="button" id="report-generate-income">Generate Income Report</button>
+      <p id="report-income">Total Income: $0</p>
+
+      <button type="button" id="report-generate-category">Generate Category Report</button>
+      <ul id="report-category"></ul>
+    </section>
+  </main>
+
+  <script src="report.js"></script> <!-- Updated JavaScript file name -->
+  <script>
+    const expenses = [];
+    const income = [];
+    const report = new Report(expenses, income);
+
+    document.getElementById("report-add-expense").addEventListener("click", () => {
+      const category = document.getElementById("report-expense-category").value;
+      const amount = parseFloat(document.getElementById("report-expense-amount").value);
+      if (category && amount) {
+        expenses.push({ category, amount });
+        document.getElementById("report-expense-category").value = '';
+        document.getElementById("report-expense-amount").value = '';
+        alert("Expense added successfully!");
+      }
+    });
+
+    document.getElementById("report-add-income").addEventListener("click", () => {
+      const source = document.getElementById("report-income-source").value;
+      const amount = parseFloat(document.getElementById("report-income-amount").value);
+      if (source && amount) {
+        income.push({ source, amount });
+        document.getElementById("report-income-source").value = '';
+        document.getElementById("report-income-amount").value = '';
+        alert("Income added successfully!");
+      }
+    });
+
+    document.getElementById("report-generate-expense").addEventListener("click", () => {
+      const totalExpenses = report.generateExpenseReport();
+      document.getElementById("report-expense").innerText = `Total Expenses: $${totalExpenses}`;
+    });
+
+    document.getElementById("report-generate-income").addEventListener("click", () => {
+      const totalIncome = report.generateIncomeReport();
+      document.getElementById("report-income").innerText = `Total Income: $${totalIncome}`;
+    });
+
+    document.getElementById("report-generate-category").addEventListener("click", () => {
+      const categoryReport = report.generateCategoryReport();
+      const categoryReportList = document.getElementById("report-category");
+      categoryReportList.innerHTML = '';
+      for (const category in categoryReport) {
+        const listItem = document.createElement("li");
+        listItem.innerText = `${category}: $${categoryReport[category]}`;
+        categoryReportList.appendChild(listItem);
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Update Username - Expense Tracker</title>
+  <link rel="stylesheet" href="updateusername.css">
+</head>
+<body>
+  <div class="update-username-page">
+    <h2>Update Username</h2>
+    <p>Enter a new username to update your account.</p>
+    <form id="update-username-form">
+      <input type="text" id="new-username" placeholder="Enter new username" required>
+      <button type="submit">Update Username</button>
+    </form>
+    <p id="status-message"></p>
+    <button onclick="document.location='settings.html'">Back to Settings</button>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-firestore.js"></script>
+  <script>
+    // Firebase configuration
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_AUTH_DOMAIN",
+      projectId: "YOUR_PROJECT_ID",
+      storageBucket: "YOUR_STORAGE_BUCKET",
+      messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+      appId: "YOUR_APP_ID"
+    };
+
+    // Initialize Firebase
+    const app = firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+
+    // Handle form submission
+    document.getElementById('update-username-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const newUsername = document.getElementById('new-username').value.trim();
+
+      if (!newUsername) {
+        document.getElementById('status-message').innerText = 'Username cannot be empty!';
+        return;
+      }
+
+      try {
+        const user = auth.currentUser;
+        if (user) {
+          // Update Firestore user data
+          await db.collection('users').doc(user.uid).update({ username: newUsername });
+
+          // Optionally, update the display name in Firebase Auth
+          await user.updateProfile({ displayName: newUsername });
+
+          document.getElementById('status-message').innerText = 'Username updated successfully!';
+        } else {
+          document.getElementById('status-message').innerText = 'No user is logged in.';
+        }
+      } catch (error) {
+        console.error('Error updating username:', error);
+        document.getElementById('status-message').innerText = `Error: ${error.message}`;
+      }
+    });
+  </script>
+</body>
+</html>
