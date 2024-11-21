@@ -1,68 +1,154 @@
+/* General Styles */
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-  }
-  
-  h1, h2 {
-    text-align: center;
-  }
-  
-  .input-section {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-  }
-  
-  .input-section label {
-    font-weight: bold;
-    margin-right: 10px;
-  }
-  
-  .input-section input[type="number"], .input-section input[type="date"] {
-    padding: 5px;
-    margin-right: 10px;
-  }
-  
-  .input-section button {
-    padding: 5px 10px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .expenses-list {
-    margin: 20px;
-  }
-  
-  table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  th, td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-  }
-  
-  th {
-    background-color: #4CAF50;
-    color: white;
-  }
-  
-  tfoot td {
-    font-weight: bold;
-  }
-  
-  .delete-btn {
-    padding: 5px 10px;
-    background-color: #f44336;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
+  font-family: Arial, sans-serif;
+  margin: 0;
+  line-height: 1.6;
+}
+
+h1, h2 {
+  text-align: center;
+}
+
+/* Input Section Styling */
+.input-section {
+  display: flex;
+  flex-wrap: wrap; /* Allow wrapping of elements on smaller screens */
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  gap: 15px; /* Add consistent spacing between elements */
+}
+
+.input-section label {
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.input-section input[type="number"],
+.input-section input[type="date"],
+.input-section input[type="text"],
+.input-section select {
+  padding: 5px;
+  margin-right: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  min-width: 120px; /* Ensure minimum size for small inputs */
+}
+
+.input-section input[type="text"] {
+  flex: 1; /* Allow the comment input to stretch for alignment */
+  min-width: 200px; /* Ensure a decent size for comments */
+}
+
+.input-section button {
+  padding: 5px 15px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.input-section button:hover {
+  background-color: #45a049;
+}
+
+/* Expenses List Section */
+.expenses-list {
+  margin: 20px auto;
+  max-width: 800px; /* Limit width for readability and center content */
+  padding: 0; /* Remove any extra padding */
+  overflow-x: hidden; /* Prevent horizontal scroll issues */
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed; /* Equal column widths */
+  margin: 0 auto; /* Center the table */
+  border-spacing: 0; /* Remove gaps between cells */
+  overflow: hidden; /* Prevent extra space from content overflow */
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 10px; /* Ensure consistent padding */
+  text-align: left;
+  vertical-align: middle; /* Align text properly */
+  word-wrap: break-word; /* Ensure long text wraps within the cell */
+}
+
+th {
+  background-color: #4CAF50;
+  color: white;
+  text-align: center; /* Center align headers */
+  padding: 10px;
+}
+
+/* Footer Fixes */
+tfoot td {
+  font-weight: bold;
+  padding: 10px;
+  text-align: left;
+  background-color: #f9f9f9; /* Light background for footer */
+}
+
+/* Button Styles */
+.edit-btn, .delete-btn {
+  display: inline-block; /* Inline buttons */
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.edit-btn {
+  background-color: #2196F3; /* Blue color for Edit */
+  color: white;
+}
+
+.edit-btn:hover {
+  background-color: #1976D2; /* Darker blue on hover */
+}
+
+.delete-btn {
+  background-color: #f44336; /* Red color for Delete */
+  color: white;
+}
+
+.delete-btn:hover {
+  background-color: #d32f2f; /* Darker red on hover */
+}
+
+/* Actions Column */
+td:last-child {
+  text-align: center; /* Center align buttons */
+  width: 150px; /* Fixed width for Actions column */
+  overflow: hidden; /* Prevent extra spacing */
+}
+
+/* Comment Column */
+.comment-column {
+  max-width: 300px; /* Limit width for readability */
+  word-wrap: break-word;
+}
+
+/* Ensure Empty Comment Cell Appears Blank */
+td.comment-column:empty::after {
+  content: ''; /* Remove default placeholder */
+  visibility: hidden; /* Ensure no extra spacing appears */
+}
+
+/* Fix Weird Spacing Below Table */
+table {
+  margin: 0 auto; /* Center the table */
+  border-spacing: 0; /* Remove gaps between cells */
+  table-layout: fixed; /* Consistent column widths */
+}
+
+td, th {
+  vertical-align: middle; /* Align text properly */
+  padding: 10px; /* Ensure consistent spacing */
+}

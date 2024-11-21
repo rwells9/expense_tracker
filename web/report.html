@@ -5,6 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Report</title>
   <link rel="stylesheet" href="report.css"> <!-- Updated CSS file name -->
+  <script src="https://www.gstatic.com/firebasejs/9.21.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.21.0/firebase-firestore.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Chart.js for graphs -->
+  <script>
+    // Initialize Firebase
+    const firebaseConfig = {
+      apiKey: "AIzaSyB5WkNyz-lCIO8irhtuvsSJSabwVhwDDnE",
+      authDomain: "expensetracker-d49a4.firebaseapp.com",
+      projectId: "expensetracker-d49a4",
+      storageBucket: "expensetracker-d49a4.appspot.com",
+      messagingSenderId: "592297030207",
+      appId: "1:592297030207:web:7a9a8edbde148236f77e8a"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+  </script>
 </head>
 <body>
   <header>
@@ -12,84 +28,97 @@
   </header>
 
   <main>
-    <section id="data-input">
-      <h2>Enter Data</h2>
-      <form id="report-expense-form">
-        <h3>Add Expense</h3>
-        <input type="text" id="report-expense-category" placeholder="Category" required>
-        <input type="number" id="report-expense-amount" placeholder="Amount" required>
-        <button type="button" id="report-add-expense">Add Expense</button>
-      </form>
-
-      <form id="report-income-form">
-        <h3>Add Income</h3>
-        <input type="text" id="report-income-source" placeholder="Source" required>
-        <input type="number" id="report-income-amount" placeholder="Amount" required>
-        <button type="button" id="report-add-income">Add Income</button>
-      </form>
-    </section>
-
     <section id="reports">
       <h2>Reports</h2>
-      <button type="button" id="report-generate-expense">Generate Expense Report</button>
-      <p id="report-expense">Total Expenses: $0</p>
-
-      <button type="button" id="report-generate-income">Generate Income Report</button>
-      <p id="report-income">Total Income: $0</p>
-
-      <button type="button" id="report-generate-category">Generate Category Report</button>
-      <ul id="report-category"></ul>
+      <canvas id="expenseChart" width="400" height="200"></canvas>
+      <canvas id="incomeChart" width="400" height="200"></canvas>
     </section>
   </main>
 
-  <script src="report.js"></script> <!-- Updated JavaScript file name -->
   <script>
-    const expenses = [];
-    const income = [];
-    const report = new Report(expenses, income);
+    // Fetch expenses from Firebase
+    async function fetchExpenses() {
+      const expensesSnapshot = await db.collection('expenses').get();
+      return expensesSnapshot.docs.map(doc => doc.data());
+    }
 
-    document.getElementById("report-add-expense").addEventListener("click", () => {
-      const category = document.getElementById("report-expense-category").value;
-      const amount = parseFloat(document.getElementById("report-expense-amount").value);
-      if (category && amount) {
-        expenses.push({ category, amount });
-        document.getElementById("report-expense-category").value = '';
-        document.getElementById("report-expense-amount").value = '';
-        alert("Expense added successfully!");
-      }
-    });
+    // Fetch income from Firebase
+    async function fetchIncome() {
+      const incomeSnapshot = await db.collection('income').get();
+      return incomeSnapshot.docs.map(doc => doc.data());
+    }
 
-    document.getElementById("report-add-income").addEventListener("click", () => {
-      const source = document.getElementById("report-income-source").value;
-      const amount = parseFloat(document.getElementById("report-income-amount").value);
-      if (source && amount) {
-        income.push({ source, amount });
-        document.getElementById("report-income-source").value = '';
-        document.getElementById("report-income-amount").value = '';
-        alert("Income added successfully!");
-      }
-    });
+    // Generate expense chart
+    async function generateExpenseChart() {
+      const expenses = await fetchExpenses();
 
-    document.getElementById("report-generate-expense").addEventListener("click", () => {
-      const totalExpenses = report.generateExpenseReport();
-      document.getElementById("report-expense").innerText = `Total Expenses: $${totalExpenses}`;
-    });
+      const categories = {};
+      expenses.forEach(expense => {
+        categories[expense.category] = (categories[expense.category] || 0) + expense.amount;
+      });
 
-    document.getElementById("report-generate-income").addEventListener("click", () => {
-      const totalIncome = report.generateIncomeReport();
-      document.getElementById("report-income").innerText = `Total Income: $${totalIncome}`;
-    });
+      const labels = Object.keys(categories);
+      const data = Object.values(categories);
 
-    document.getElementById("report-generate-category").addEventListener("click", () => {
-      const categoryReport = report.generateCategoryReport();
-      const categoryReportList = document.getElementById("report-category");
-      categoryReportList.innerHTML = '';
-      for (const category in categoryReport) {
-        const listItem = document.createElement("li");
-        listItem.innerText = `${category}: $${categoryReport[category]}`;
-        categoryReportList.appendChild(listItem);
-      }
-    });
+      const ctx = document.getElementById('expenseChart').getContext('2d');
+      new Chart(ctx, {
+        type: 'pie',
+        data: {
+          labels: labels,
+          datasets: [{
+            label: 'Expenses by Category',
+            data: data,
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.6)',
+              'rgba(54, 162, 235, 0.6)',
+              'rgba(255, 206, 86, 0.6)',
+              'rgba(75, 192, 192, 0.6)',
+              'rgba(153, 102, 255, 0.6)',
+              'rgba(255, 159, 64, 0.6)'
+            ]
+          }]
+        }
+      });
+    }
+
+    // Generate income chart
+    async function generateIncomeChart() {
+      const income = await fetchIncome();
+
+      const sources = {};
+      income.forEach(entry => {
+        sources[entry.source] = (sources[entry.source] || 0) + entry.amount;
+      });
+
+      const labels = Object.keys(sources);
+      const data = Object.values(sources);
+
+      const ctx = document.getElementById('incomeChart').getContext('2d');
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: labels,
+          datasets: [{
+            label: 'Income by Source',
+            data: data,
+            backgroundColor: 'rgba(75, 192, 192, 0.6)'
+          }]
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      });
+    }
+
+    // Generate reports on page load
+    window.onload = async () => {
+      await generateExpenseChart();
+      await generateIncomeChart();
+    };
   </script>
 </body>
 </html>

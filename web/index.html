@@ -6,51 +6,105 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <title>Expense Tracker App</title>
+    <script src="https://www.gstatic.com/firebasejs/9.21.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.21.0/firebase-firestore.js"></script>
+    <script>
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyB5WkNyz-lCIO8irhtuvsSJSabwVhwDDnE",
+            authDomain: "expensetracker-d49a4.firebaseapp.com",
+            projectId: "expensetracker-d49a4",
+            storageBucket: "expensetracker-d49a4.firebasestorage.app",
+            messagingSenderId: "592297030207",
+            appId: "1:592297030207:web:7a9a8edbde148236f77e8a"
+        };
+
+        // Initialize Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+    </script>
 </head>
 <body>
     <h1>Expense Tracker App</h1>
     <div class="input-section">
+        <label for="type-select">Type:</label>
+        <select id="type-select">
+            <option value="Expense">Expense</option>
+            <option value="Income">Income</option>
+        </select>
+
         <label for="category-select">Category:</label>
         <select id="category-select">
             <option value="Food & Beverage">Food & Beverage</option>
             <option value="Rent">Rent</option>
             <option value="Transport">Transport</option>
             <option value="Relaxing">Relaxing</option>
+            <option value="Salary">Salary</option>
+            <option value="Freelancing">Freelancing</option>
         </select>
-        
+
         <label for="amount-input">Amount:</label>
-        <input type="number" id="amount-input">
-        
+        <input type="number" id="amount-input" min="0" step="0.01" required>
+
         <label for="date-input">Date:</label>
-        <input type="date" id="date-input">
-        <button id="add-btn">Add</button>
-        <button onclick="document.location='settings.html'">Settings</button>
+        <input type="date" id="date-input" required>
+
+        <label for="comment-input">Comment:</label>
+        <input type="text" id="comment-input" placeholder="Optional">
+
+        <button id="add-btn" type="button">Add</button>
+        <button type="button" onclick="document.location='settings.html'">Settings</button>
     </div>
 
-<div class="expenses-list">
-    <h2>Expenses List</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Category</th>
-                <th>Amount</th>
-                <th>Date</th>
-                <th>Delete</th>
-            </tr>
-        </thead>
-        <tbody id="expense-table-body">
-        </tbody>
-        <tfoot>
-            <tr>
-                <td>Total:</td>
-                <td id="total-amount"></td>
-                <td></td>
-                <td></td>
-            </tr>
-        </tfoot>
-    </table>
-</div>
+    <div class="tables-section">
+        <div class="expenses-list">
+            <h2>Expenses List</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Amount</th>
+                        <th>Date</th>
+                        <th>Comment</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="expense-table-body">
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td>Total:</td>
+                        <td id="total-expenses"></td>
+                        <td colspan="3"></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
 
-<script src="script.js"></script>
+        <div class="income-list">
+            <h2>Income List</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Amount</th>
+                        <th>Date</th>
+                        <th>Comment</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="income-table-body">
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td>Total:</td>
+                        <td id="total-income"></td>
+                        <td colspan="3"></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+    <script src="script.js"></script>
 </body>
-</html> 
+</html>
