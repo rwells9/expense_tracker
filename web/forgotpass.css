@@ -1,0 +1,95 @@
+/* General Reset */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    flex-direction: column; /* Align header and form vertically */
+  }
+  
+  /* Header */
+  header {
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  
+  header h1 {
+    color:teal;
+    font-size: 32px;
+    margin-bottom: 0;
+  }
+  
+  /* Reset Password Section */
+  .reset-password-section {
+    width: 100%;
+    max-width: 400px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center-align inputs and content */
+  }
+  
+  .reset-password-section h2 {
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 20px;
+    text-align: center;
+  }
+  
+  /* Form */
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%; /* Use full width of the box */
+    align-items: center; /* Center-align inputs horizontally */
+  }
+  
+  .form-group {
+    width: 90%; /* Center the input boxes inside the section */
+    text-align: left;
+  }
+  
+  .form-group label {
+    font-size: 14px;
+    margin-bottom: 5px;
+    display: block;
+  }
+  
+  form input[type="password"] {
+    width: 100%; /* Full width of the form group */
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+  }
+  
+  form input[type="password"]:focus {
+    border-color:teal;
+    outline: none;
+    background-color: white;
+  }
+  
+  /* Button */
+  form .btn {
+    padding: 10px 20px;
+    background-color:teal;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 90%; /* Align button with input width */
+  }
+  
+  form .btn:hover {
+    background-color: teal;
+  }
+  

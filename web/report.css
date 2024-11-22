@@ -1,0 +1,108 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+header {
+    background-color: teal;
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+h1, h2 {
+    margin: 0;
+}
+
+h2 {
+    color: teal;
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Main Content */
+main {
+    max-width: 800px;
+    margin: 20px auto;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+/* Forms Section */
+form {
+    margin: 20px 0;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f4f4f4;
+}
+
+form h3 {
+    color: teal;
+    margin-bottom: 10px;
+}
+
+input[type="text"], input[type="number"] {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin: 5px 0 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+}
+
+input[type="text"]:focus, input[type="number"]:focus {
+    border-color: teal;
+    outline: none;
+    background-color: white;
+}
+
+button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: teal;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 5px 0;
+}
+
+button:hover {
+    background-color:teal;
+}
+
+/* Reports Section */
+#reports {
+    margin-top: 20px;
+    text-align: center;
+}
+
+#reports button {
+    margin: 10px auto;
+    display: block;
+}
+
+#reports p {
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+#reports ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+#reports li {
+    padding: 8px 0;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+}

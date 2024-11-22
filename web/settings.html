@@ -7,33 +7,35 @@
   <link rel="stylesheet" href="settings.css">
 </head>
 <body>
-  <div class="settings-page">
-    <h2>Settings</h2>
+  <div class="settings-wrapper">
+    <h1>Settings</h1>
 
     <!-- Account Section -->
-    <div class="section" id="account-section">
-      <h3>Account Information</h3>
-      <p>Email: <span id="email-display"></span></p>
-      <button onclick="document.location='accountdetails.html'">View Account Details</button>
-      <button onclick="logout()">Logout</button>
+    <div class="settings-section">
+      <h2>Account Information</h2>
+      <p>Email: <span id="email-display">example@domain.com</span></p>
+      <div class="button-group">
+        <button onclick="document.location='accountdetails.html'">View Account Details</button>
+        <button class="logout-btn" onclick="logout()">Logout</button>
+      </div>
     </div>
 
     <!-- Report/Analysis Section -->
-    <div class="section" id="report-section">
-      <h3>Reports & Analysis</h3>
+    <div class="settings-section">
+      <h2>Reports & Analysis</h2>
       <p>View detailed reports on your spending habits.</p>
       <button onclick="document.location='report.html'">View Reports</button>
     </div>
 
     <!-- Update Username -->
-    <div class="section" id="username-section">
-      <h3>Update Username</h3>
+    <div class="settings-section">
+      <h2>Update Username</h2>
       <button onclick="document.location='updateusername.html'">Update Username</button>
     </div>
 
     <!-- Change Password -->
-    <div class="section" id="password-section">
-      <h3>Change Password</h3>
+    <div class="settings-section">
+      <h2>Change Password</h2>
       <button onclick="document.location='forgotpass.html'">Change Password</button>
     </div>
   </div>
@@ -43,3 +45,4 @@
   <script src="settingsscript.js"></script>
 </body>
 </html>
+
